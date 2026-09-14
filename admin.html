@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Rohingya Hope Initiative</title>
+    <title>Admin Dashboard - RYEA</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -13,21 +12,21 @@
 
     <!-- Auth Container (Login Form) -->
     <div id="auth-container" class="flex items-center justify-center min-h-screen px-4">
-        <div class="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
+        <div class="bg-white p-8 rounded-xl shadow-lg max-w-md w-full border border-gray-200">
             <div class="text-center mb-6">
-                <h1 class="text-2xl font-bold text-emerald-700">অ্যাডমিন লগইন</h1>
-                <p class="text-sm text-gray-500 mt-1">প্যানেলে প্রবেশ করতে আপনার ইমেইল ও পাসওয়ার্ড দিন</p>
+                <h1 class="text-2xl font-bold text-teal-800">RYEA Admin Login</h1>
+                <p class="text-sm text-gray-500 mt-1">Please login to access control panel</p>
             </div>
             <form id="login-form" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">ইমেইল</label>
-                    <input type="email" id="login-email" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" id="login-email" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-400 focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">পাসওয়ার্ড</label>
-                    <input type="password" id="login-password" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="login-password" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-400 focus:outline-none">
                 </div>
-                <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-2 rounded-lg hover:bg-emerald-700 transition">লগইন করুন</button>
+                <button type="submit" class="w-full bg-teal-800 text-white font-bold py-2.5 rounded-lg hover:bg-teal-900 transition">Login</button>
             </form>
             <p id="login-error" class="text-red-500 text-sm mt-3 text-center hidden"></p>
         </div>
@@ -36,271 +35,375 @@
     <!-- Main Dashboard -->
     <div id="dashboard-container" class="hidden">
         <!-- Top Navbar -->
-        <header class="bg-white shadow-sm sticky top-0 z-40">
+        <header class="bg-teal-900 text-white shadow-sm sticky top-0 z-40">
             <div class="container mx-auto px-4 py-4 flex justify-between items-center">
                 <div class="flex items-center space-x-3">
-                    <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-0.5 rounded">Admin</span>
-                    <h1 class="text-xl font-bold text-gray-800">Rohingya Hope Control Panel</h1>
+                    <span class="bg-amber-400 text-gray-900 text-xs font-bold px-2.5 py-1 rounded">ADMIN PANEL</span>
+                    <h1 class="text-xl font-extrabold tracking-wide">RYEA Control Panel</h1>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <span id="user-email-display" class="text-sm text-gray-600 hidden md:inline"></span>
+                    <span id="user-email-display" class="text-sm text-amber-300 hidden md:inline"></span>
                     <button id="logout-btn" class="bg-red-500 hover:bg-red-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition">
-                        <i class="fa-solid fa-right-from-bracket mr-1"></i> লগআউট
+                        <i class="fa-solid fa-right-from-bracket mr-1"></i> Logout
                     </button>
                 </div>
             </div>
         </header>
 
-        <!-- Main Content Grid -->
-        <main class="container mx-auto px-4 py-8 grid lg:grid-cols-3 gap-8">
-            
-            <!-- Left Column: Add New Project Form -->
-            <div class="lg:col-span-1">
-                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 sticky top-24">
-                    <h2 class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b flex items-center">
-                        <i class="fa-solid fa-plus-circle text-emerald-600 mr-2"></i> নতুন প্রজেক্ট যুক্ত করুন
-                    </h2>
-                    <form id="add-project-form" class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">প্রজেক্টের নাম (Title)</label>
-                            <input type="text" id="project-title" placeholder="যেমন: শীতবস্ত্র বিতরণ" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                        </div>
-                        
-                        <!-- Image Upload Field -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">ছবি আপলোড করুন (Image File)</label>
-                            <input type="file" id="project-image-file" accept="image/*" required class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 border rounded-lg cursor-pointer">
-                        </div>
+        <!-- Navigation Tabs -->
+        <div class="bg-white border-b sticky top-[68px] z-30 shadow-sm">
+            <div class="container mx-auto px-4 flex space-x-4 overflow-x-auto">
+                <button onclick="switchTab('activities')" id="tab-btn-activities" class="tab-btn border-b-2 border-teal-800 text-teal-800 font-bold py-3 px-4 flex items-center gap-2">
+                    <i class="fa-solid fa-newspaper"></i> Recent Activities & Work
+                </button>
+                <button onclick="switchTab('leadership')" id="tab-btn-leadership" class="tab-btn border-b-2 border-transparent text-gray-600 hover:text-teal-800 font-bold py-3 px-4 flex items-center gap-2">
+                    <i class="fa-solid fa-users"></i> Leadership Team
+                </button>
+            </div>
+        </div>
 
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">প্রজেক্টের বর্ণনা (Description)</label>
-                            <textarea id="project-desc" rows="4" placeholder="সংক্ষেপে প্রজেক্টের উদ্দেশ্য লিখুন..." required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">ডোনেট লিঙ্ক (Donate Link - ঐচ্ছিক)</label>
-                            <input type="text" id="project-donate" placeholder="#donate বা কাস্টম পেমেন্ট লিংক" value="#donate" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                        </div>
-                        <button type="submit" id="submit-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg shadow-sm transition">
-                            পাবলিশ করুন
-                        </button>
-                    </form>
+        <!-- Dashboard Content -->
+        <main class="container mx-auto px-4 py-8">
+
+            <!-- 1. RECENT ACTIVITIES TAB CONTENT -->
+            <div id="tab-activities" class="tab-content grid lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 sticky top-36">
+                        <h2 id="activity-form-title" class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b flex items-center">
+                            <i class="fa-solid fa-plus-circle text-teal-700 mr-2"></i> Add Activity
+                        </h2>
+                        <form id="activity-form" class="space-y-4">
+                            <input type="hidden" id="activity-edit-id">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Activity Title *</label>
+                                <input type="text" id="activity-title" placeholder="যেমন: শীতবস্ত্র বিতরণ কার্যক্রম" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Activity Photo *</label>
+                                <input type="file" id="activity-image-file" accept="image/*" class="w-full text-xs text-gray-500 border rounded-lg p-1">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Date *</label>
+                                <input type="date" id="activity-date" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Details/Description *</label>
+                                <textarea id="activity-desc" rows="3" placeholder="সংক্ষেপে কার্যক্রমের বিবরণ লিখুন..." required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none"></textarea>
+                            </div>
+                            <div class="flex gap-2">
+                                <button type="submit" id="activity-submit-btn" class="w-full bg-teal-800 hover:bg-teal-900 text-white font-bold py-2 rounded-lg shadow-sm transition">Save Activity</button>
+                                <button type="button" onclick="resetActivityForm()" id="activity-cancel-btn" class="hidden w-1/3 bg-gray-300 text-gray-800 font-bold py-2 rounded-lg">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="lg:col-span-2">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                        <h2 class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b">Recent Activities List</h2>
+                        <div id="activities-list" class="space-y-4"></div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Right Column: Live Projects List -->
-            <div class="lg:col-span-2">
-                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-                    <div class="flex justify-between items-center mb-6 pb-2 border-b">
-                        <h2 class="text-lg font-bold text-gray-800 flex items-center">
-                            <i class="fa-solid fa-list-check text-emerald-600 mr-2"></i> বর্তমান প্রজেক্টসমূহ
+            <!-- 2. LEADERSHIP TAB CONTENT -->
+            <div id="tab-leadership" class="tab-content hidden grid lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 sticky top-36">
+                        <h2 id="leader-form-title" class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b flex items-center">
+                            <i class="fa-solid fa-plus-circle text-teal-700 mr-2"></i> Add Leader
                         </h2>
-                        <span id="project-count" class="bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-full font-bold">মোট: ০</span>
+                        <form id="leader-form" class="space-y-4">
+                            <input type="hidden" id="leader-edit-id">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Full Name *</label>
+                                <input type="text" id="leader-name" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Designation/Role *</label>
+                                <input type="text" id="leader-role" placeholder="e.g. Founder & CEO" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Email *</label>
+                                <input type="email" id="leader-email" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Photo (Optional)</label>
+                                <input type="file" id="leader-image-file" accept="image/*" class="w-full text-xs text-gray-500 border rounded-lg p-1">
+                            </div>
+                            <div class="flex gap-2">
+                                <button type="submit" id="leader-submit-btn" class="w-full bg-teal-800 hover:bg-teal-900 text-white font-bold py-2 rounded-lg shadow-sm transition">Save Leader</button>
+                                <button type="button" onclick="resetLeaderForm()" id="leader-cancel-btn" class="hidden w-1/3 bg-gray-300 text-gray-800 font-bold py-2 rounded-lg">Cancel</button>
+                            </div>
+                        </form>
                     </div>
-
-                    <!-- Loader -->
-                    <div id="loading-spinner" class="text-center py-12">
-                        <i class="fa-solid fa-circle-notch fa-spin text-3xl text-emerald-600"></i>
-                        <p class="text-sm text-gray-500 mt-2">ডাটা লোড হচ্ছে...</p>
+                </div>
+                <div class="lg:col-span-2">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                        <h2 class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b">Leadership Team List</h2>
+                        <div id="leadership-list" class="space-y-4"></div>
                     </div>
-
-                    <!-- Projects Grid/List -->
-                    <div id="admin-projects-list" class="space-y-4"></div>
                 </div>
             </div>
 
         </main>
     </div>
 
-    <!-- Firebase Script (v10 Modular Web SDK) -->
+    <!-- Firebase v10 Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { 
-            getAuth, 
-            signInWithEmailAndPassword, 
-            signOut, 
-            onAuthStateChanged 
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { 
-            getFirestore, 
-            collection, 
-            addDoc, 
-            deleteDoc, 
-            doc, 
-            onSnapshot, 
-            serverTimestamp, 
-            query, 
-            orderBy 
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { 
-            getStorage, 
-            ref, 
-            uploadBytes, 
-            getDownloadURL, 
-            deleteObject 
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
-        // ==========================================
-        // 1. আপনার Firebase কনফিগারেশন এখানে বসান
-        // ==========================================
+        // Firebase Configuration (Connected to your ryea-6a3ef project)
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "AIzaSyDJL8W3-yifNW_nD8hbDnYms7mLWTx10Ic",
+            authDomain: "ryea-6a3ef.firebaseapp.com",
+            projectId: "ryea-6a3ef",
+            storageBucket: "ryea-6a3ef.firebasestorage.app",
+            messagingSenderId: "967055218910",
+            appId: "1:967055218910:web:cfda3fc1d92a18ee2d4a4f"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
         const storage = getStorage(app);
 
-        // DOM Elements
-        const authContainer = document.getElementById('auth-container');
-        const dashboardContainer = document.getElementById('dashboard-container');
-        const loginForm = document.getElementById('login-form');
-        const loginError = document.getElementById('login-error');
-        const logoutBtn = document.getElementById('logout-btn');
-        const userEmailDisplay = document.getElementById('user-email-display');
-        const addProjectForm = document.getElementById('add-project-form');
-        const projectsList = document.getElementById('admin-projects-list');
-        const loadingSpinner = document.getElementById('loading-spinner');
-        const projectCount = document.getElementById('project-count');
+        // UI Tabs Switcher
+        window.switchTab = (tabName) => {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('border-teal-800', 'text-teal-800');
+                el.classList.add('border-transparent', 'text-gray-600');
+            });
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+            activeBtn.classList.add('border-teal-800', 'text-teal-800');
+            activeBtn.classList.remove('border-transparent', 'text-gray-600');
+        };
 
-        // ==========================================
-        // 2. Authentication Handling
-        // ==========================================
+        // Authentication State
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                authContainer.classList.add('hidden');
-                dashboardContainer.classList.remove('hidden');
-                userEmailDisplay.textContent = user.email;
-                loadProjects();
+                document.getElementById('auth-container').classList.add('hidden');
+                document.getElementById('dashboard-container').classList.remove('hidden');
+                document.getElementById('user-email-display').textContent = user.email;
+                loadActivities();
+                loadLeadership();
             } else {
-                authContainer.classList.remove('hidden');
-                dashboardContainer.classList.add('hidden');
+                document.getElementById('auth-container').classList.remove('hidden');
+                document.getElementById('dashboard-container').classList.add('hidden');
             }
         });
 
-        // Login Submit
-        loginForm.addEventListener('submit', async (e) => {
+        // Login / Logout
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
-            loginError.classList.add('hidden');
-
             try {
                 await signInWithEmailAndPassword(auth, email, password);
-            } catch (error) {
-                loginError.textContent = "ইমেইল বা পাসওয়ার্ড ভুল হয়েছে!";
-                loginError.classList.remove('hidden');
+            } catch (err) {
+                document.getElementById('login-error').textContent = err.message;
+                document.getElementById('login-error').classList.remove('hidden');
             }
         });
+        document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
 
-        // Logout
-        logoutBtn.addEventListener('click', () => signOut(auth));
+        // Helper Image Upload Function
+        async function uploadImage(file, folderName) {
+            const storageRef = ref(storage, `${folderName}/${Date.now()}_${file.name}`);
+            const uploadTask = await uploadBytes(storageRef, file);
+            const downloadUrl = await getDownloadURL(uploadTask.ref);
+            return { url: downloadUrl, path: uploadTask.ref.fullPath };
+        }
 
-        // ==========================================
-        // 3. Add New Project with Image File Upload
-        // ==========================================
-        addProjectForm.addEventListener('submit', async (e) => {
+        // ================= 1. ACTIVITIES CRUD =================
+        const activityForm = document.getElementById('activity-form');
+        activityForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const submitBtn = document.getElementById('submit-btn');
-            const fileInput = document.getElementById('project-image-file');
-            const file = fileInput.files[0];
-
-            if (!file) {
-                alert("অনুগ্রহ করে একটি ছবি নির্বাচন করুন!");
-                return;
-            }
-
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ছবি আপলোড হচ্ছে...';
+            const editId = document.getElementById('activity-edit-id').value;
+            const submitBtn = document.getElementById('activity-submit-btn');
+            const file = document.getElementById('activity-image-file').files[0];
+            
+            submitBtn.disabled = true; 
+            submitBtn.innerText = "Saving...";
 
             try {
-                // Upload Image to Firebase Storage
-                const storageRef = ref(storage, `projects/${Date.now()}_${file.name}`);
-                const uploadTask = await uploadBytes(storageRef, file);
-                const imageUrl = await getDownloadURL(uploadTask.ref);
+                let data = {
+                    title: document.getElementById('activity-title').value,
+                    date: document.getElementById('activity-date').value,
+                    description: document.getElementById('activity-desc').value,
+                };
 
-                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ডাটা সেভ হচ্ছে...';
+                if (file) {
+                    const imgData = await uploadImage(file, "activities");
+                    data.image = imgData.url;
+                    data.imagePath = imgData.path;
+                }
 
-                // Save Document to Firestore
-                await addDoc(collection(db, "projects"), {
-                    title: document.getElementById('project-title').value,
-                    image: imageUrl,
-                    imagePath: uploadTask.ref.fullPath, // For deleting image later
-                    description: document.getElementById('project-desc').value,
-                    donateLink: document.getElementById('project-donate').value || "#donate",
-                    createdAt: serverTimestamp()
-                });
-
-                addProjectForm.reset();
-                alert("প্রজেক্ট সফলভাবে আপলোড করা হয়েছে!");
-            } catch (error) {
-                alert("ত্রুটি: " + error.message);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'পাবলিশ করুন';
+                if (editId) {
+                    await updateDoc(doc(db, "activities", editId), data);
+                } else {
+                    if (!file) throw new Error("Please select an activity photo!");
+                    data.createdAt = serverTimestamp();
+                    await addDoc(collection(db, "activities"), data);
+                }
+                resetActivityForm();
+            } catch (err) { 
+                alert(err.message); 
+            } finally { 
+                submitBtn.disabled = false; 
+                submitBtn.innerText = "Save Activity"; 
             }
         });
 
-        // ==========================================
-        // 4. Real-time Fetch & Delete Projects
-        // ==========================================
-        function loadProjects() {
-            const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
-            
+        function loadActivities() {
+            const q = query(collection(db, "activities"), orderBy("createdAt", "desc"));
             onSnapshot(q, (snapshot) => {
-                loadingSpinner.classList.add('hidden');
-                projectsList.innerHTML = '';
-                projectCount.textContent = `মোট: ${snapshot.docs.length}`;
-
-                if(snapshot.docs.length === 0) {
-                    projectsList.innerHTML = `<p class="text-center text-gray-500 py-6">কোনো প্রজেক্ট পাওয়া যায়নি।</p>`;
+                const list = document.getElementById('activities-list');
+                list.innerHTML = '';
+                
+                if (snapshot.docs.length === 0) {
+                    list.innerHTML = '<p class="text-center text-gray-500 py-4">No activities added yet.</p>';
                     return;
                 }
 
-                snapshot.docs.forEach((docSnap) => {
-                    const data = docSnap.data();
+                snapshot.docs.forEach(docSnap => {
+                    const d = docSnap.data(); 
                     const id = docSnap.id;
-
-                    const card = document.createElement('div');
-                    card.className = "flex flex-col sm:flex-row items-center justify-between bg-gray-50 p-4 rounded-lg border border-gray-200 gap-4";
-                    card.innerHTML = `
-                        <div class="flex items-center space-x-4 w-full sm:w-auto">
-                            <img src="${data.image}" alt="Thumb" class="w-20 h-16 object-cover rounded-md flex-shrink-0 bg-gray-200" onerror="this.src='https://via.placeholder.com/80x60'">
-                            <div>
-                                <h3 class="font-bold text-gray-800 text-sm md:text-base">${data.title}</h3>
-                                <p class="text-xs text-gray-500 line-clamp-2 mt-1">${data.description}</p>
+                    list.innerHTML += `
+                        <div class="flex items-center justify-between p-3 bg-gray-50 border rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <img src="${d.image}" class="w-16 h-12 object-cover rounded bg-gray-200">
+                                <div>
+                                    <h4 class="font-bold text-sm">${d.title}</h4>
+                                    <span class="text-xs text-amber-600 font-semibold">${d.date}</span>
+                                </div>
                             </div>
-                        </div>
-                        <button onclick="deleteProject('${id}', '${data.imagePath || ''}')" class="w-full sm:w-auto bg-red-100 hover:bg-red-200 text-red-700 px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center justify-center space-x-1">
-                            <i class="fa-solid fa-trash-can"></i>
-                            <span>ডিলিট</span>
-                        </button>
-                    `;
-                    projectsList.appendChild(card);
+                            <div class="flex gap-2">
+                                <button onclick="editActivity('${id}', '${d.title}', '${d.date}', '${d.description.replace(/'/g, "\\'")}')" class="text-blue-600 font-bold text-xs">Edit</button>
+                                <button onclick="deleteDocItem('activities', '${id}', '${d.imagePath||''}')" class="text-red-600 font-bold text-xs">Delete</button>
+                            </div>
+                        </div>`;
                 });
             });
         }
 
-        // Global Delete Function (Deletes Firestore Document & Storage Image)
-        window.deleteProject = async (id, imagePath) => {
-            if(confirm("আপনি কি নিশ্চিত যে এই প্রজেক্টটি ডিলিট করতে চান?")) {
+        window.editActivity = (id, title, date, desc) => {
+            document.getElementById('activity-edit-id').value = id;
+            document.getElementById('activity-title').value = title;
+            document.getElementById('activity-date').value = date;
+            document.getElementById('activity-desc').value = desc;
+            document.getElementById('activity-form-title').innerText = "Edit Activity";
+            document.getElementById('activity-cancel-btn').classList.remove('hidden');
+        };
+
+        window.resetActivityForm = () => {
+            activityForm.reset();
+            document.getElementById('activity-edit-id').value = '';
+            document.getElementById('activity-form-title').innerText = "Add Activity";
+            document.getElementById('activity-cancel-btn').classList.add('hidden');
+        };
+
+        // ================= 2. LEADERSHIP CRUD =================
+        const leaderForm = document.getElementById('leader-form');
+        leaderForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('leader-edit-id').value;
+            const submitBtn = document.getElementById('leader-submit-btn');
+            const file = document.getElementById('leader-image-file').files[0];
+            
+            submitBtn.disabled = true; 
+            submitBtn.innerText = "Saving...";
+
+            try {
+                let data = {
+                    name: document.getElementById('leader-name').value,
+                    role: document.getElementById('leader-role').value,
+                    email: document.getElementById('leader-email').value,
+                };
+
+                if (file) {
+                    const imgData = await uploadImage(file, "leaders");
+                    data.image = imgData.url;
+                    data.imagePath = imgData.path;
+                }
+
+                if (editId) {
+                    await updateDoc(doc(db, "leaders", editId), data);
+                } else {
+                    data.createdAt = serverTimestamp();
+                    await addDoc(collection(db, "leaders"), data);
+                }
+                resetLeaderForm();
+            } catch (err) { 
+                alert(err.message); 
+            } finally { 
+                submitBtn.disabled = false; 
+                submitBtn.innerText = "Save Leader"; 
+            }
+        });
+
+        function loadLeadership() {
+            const q = query(collection(db, "leaders"), orderBy("createdAt", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const list = document.getElementById('leadership-list');
+                list.innerHTML = '';
+
+                if (snapshot.docs.length === 0) {
+                    list.innerHTML = '<p class="text-center text-gray-500 py-4">No team members added yet.</p>';
+                    return;
+                }
+
+                snapshot.docs.forEach(docSnap => {
+                    const d = docSnap.data(); 
+                    const id = docSnap.id;
+                    list.innerHTML += `
+                        <div class="flex items-center justify-between p-3 bg-gray-50 border rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <img src="${d.image || 'https://via.placeholder.com/100'}" class="w-12 h-12 rounded-full object-cover bg-gray-200">
+                                <div>
+                                    <h4 class="font-bold text-sm">${d.name}</h4>
+                                    <p class="text-xs text-teal-700 font-semibold">${d.role}</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="editLeader('${id}', '${d.name}', '${d.role}', '${d.email}')" class="text-blue-600 font-bold text-xs">Edit</button>
+                                <button onclick="deleteDocItem('leaders', '${id}', '${d.imagePath||''}')" class="text-red-600 font-bold text-xs">Delete</button>
+                            </div>
+                        </div>`;
+                });
+            });
+        }
+
+        window.editLeader = (id, name, role, email) => {
+            document.getElementById('leader-edit-id').value = id;
+            document.getElementById('leader-name').value = name;
+            document.getElementById('leader-role').value = role;
+            document.getElementById('leader-email').value = email;
+            document.getElementById('leader-form-title').innerText = "Edit Leader";
+            document.getElementById('leader-cancel-btn').classList.remove('hidden');
+        };
+
+        window.resetLeaderForm = () => {
+            leaderForm.reset();
+            document.getElementById('leader-edit-id').value = '';
+            document.getElementById('leader-form-title').innerText = "Add Leader";
+            document.getElementById('leader-cancel-btn').classList.add('hidden');
+        };
+
+        // Shared Global Delete Function
+        window.deleteDocItem = async (collectionName, id, imagePath) => {
+            if (confirm("Are you sure you want to delete this item?")) {
                 try {
-                    // Delete Document
-                    await deleteDoc(doc(db, "projects", id));
-                    
-                    // Delete Storage Image if path exists
+                    await deleteDoc(doc(db, collectionName, id));
                     if (imagePath) {
-                        const imageRef = ref(storage, imagePath);
-                        await deleteObject(imageRef).catch(err => console.log("Storage image deletion skipped: ", err));
+                        await deleteObject(ref(storage, imagePath)).catch(err => console.log("Storage delete note: ", err));
                     }
-                } catch (error) {
-                    alert("ডিলিট করতে সমস্যা হয়েছে: " + error.message);
+                } catch (err) { 
+                    alert("Error deleting: " + err.message); 
                 }
             }
         };
