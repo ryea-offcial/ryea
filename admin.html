@@ -76,12 +76,12 @@
                             <input type="hidden" id="activity-edit-id">
                             <div>
                                 <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Activity Title *</label>
-                                <input type="text" id="activity-title" placeholder="যেমন: শীতবস্ত্র বিতরণ কার্যক্রম" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none">
+                                <input type="text" id="activity-title" placeholder="যেমন: Community Engagement Meeting" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Photo URLs (Comma Separated) *</label>
-                                <textarea id="activity-image-urls" rows="2" placeholder="https://image1.jpg, https://image2.jpg" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none"></textarea>
-                                <span class="text-[10px] text-gray-500">একাধিক ছবি দিতে কমা (,) ব্যবহার করুন।</span>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Photo URLs *</label>
+                                <textarea id="activity-image-urls" rows="4" placeholder="https://image1.jpg&#10;https://image2.jpg" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none"></textarea>
+                                <span class="text-[10px] text-gray-500">একাধিক ছবি দিতে কমা (,) অথবা নতুন লাইনে/Enter চেপে দিন।</span>
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Date *</label>
@@ -165,7 +165,6 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Store loaded data globally to prevent inline string-escaping errors
         const activitiesCache = {};
         const leadersCache = {};
 
@@ -221,6 +220,15 @@
 
         document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
 
+        // Helper to parse multiple URLs (Separated by comma OR newline)
+        function parseUrls(rawText) {
+            if (!rawText) return [];
+            return rawText
+                .split(/[\n,]+/)
+                .map(url => url.trim())
+                .filter(url => url.length > 0 && url.startsWith('http'));
+        }
+
         // ================= 1. ACTIVITIES CRUD =================
         const activityForm = document.getElementById('activity-form');
         activityForm.addEventListener('submit', async (e) => {
@@ -228,9 +236,13 @@
             const editId = document.getElementById('activity-edit-id').value;
             const submitBtn = document.getElementById('activity-submit-btn');
             
-            // Process Image URLs String to Array
             const rawUrls = document.getElementById('activity-image-urls').value;
-            const imageUrls = rawUrls.split(',').map(url => url.trim()).filter(url => url.length > 0);
+            const imageUrls = parseUrls(rawUrls);
+
+            if (imageUrls.length === 0) {
+                alert("Please enter at least one valid image URL.");
+                return;
+            }
 
             submitBtn.disabled = true; 
             submitBtn.innerText = "Saving...";
@@ -239,7 +251,7 @@
                 let data = {
                     title: document.getElementById('activity-title').value,
                     images: imageUrls,
-                    image: imageUrls[0] || '', // Fallback for single primary photo
+                    image: imageUrls[0] || '', // First image as fallback
                     date: document.getElementById('activity-date').value,
                     description: document.getElementById('activity-desc').value,
                 };
@@ -251,8 +263,14 @@
                     await addDoc(collection(db, "activities"), data);
                 }
                 resetActivityForm();
+                alert(`Successfully saved ${imageUrls.length} photos for this activity!`);
             } catch (err) { 
-                alert(err.message); 
+                if (err.message.includes("No document to update")) {
+                    alert("The item no longer exists in database. Creating new entry instead.");
+                    document.getElementById('activity-edit-id').value = '';
+                } else {
+                    alert("Error: " + err.message); 
+                }
             } finally { 
                 submitBtn.disabled = false; 
                 submitBtn.innerText = "Save Activity"; 
@@ -274,16 +292,15 @@
                     const d = docSnap.data(); 
                     const id = docSnap.id;
                     
-                    // Save to cache
                     activitiesCache[id] = d;
 
                     let imagesArr = [];
                     if (Array.isArray(d.images) && d.images.length > 0) {
                         imagesArr = d.images;
-                    } else if (typeof d.images === 'string' && d.images.trim() !== '') {
-                        imagesArr = d.images.split(',').map(u => u.trim());
+                    } else if (typeof d.images === 'string') {
+                        imagesArr = parseUrls(d.images);
                     } else if (d.image) {
-                        imagesArr = typeof d.image === 'string' ? d.image.split(',').map(u => u.trim()) : [d.image];
+                        imagesArr = parseUrls(d.image);
                     }
 
                     const primaryImg = imagesArr[0] || 'https://via.placeholder.com/150';
@@ -314,14 +331,14 @@
             if (Array.isArray(data.images)) {
                 imagesArr = data.images;
             } else if (typeof data.images === 'string') {
-                imagesArr = data.images.split(',').map(u => u.trim());
+                imagesArr = parseUrls(data.images);
             } else if (data.image) {
-                imagesArr = typeof data.image === 'string' ? data.image.split(',').map(u => u.trim()) : [data.image];
+                imagesArr = parseUrls(data.image);
             }
 
             document.getElementById('activity-edit-id').value = id;
             document.getElementById('activity-title').value = data.title || '';
-            document.getElementById('activity-image-urls').value = imagesArr.join(', ');
+            document.getElementById('activity-image-urls').value = imagesArr.join('\n');
             document.getElementById('activity-date').value = data.date || '';
             document.getElementById('activity-desc').value = data.description || '';
             
@@ -360,8 +377,14 @@
                     await addDoc(collection(db, "leaders"), data);
                 }
                 resetLeaderForm();
+                alert("Leader saved successfully!");
             } catch (err) { 
-                alert(err.message); 
+                if (err.message.includes("No document to update")) {
+                    alert("Leader entry missing from database. Creating new record instead.");
+                    document.getElementById('leader-edit-id').value = '';
+                } else {
+                    alert("Error: " + err.message); 
+                }
             } finally { 
                 submitBtn.disabled = false; 
                 submitBtn.innerText = "Save Leader"; 
@@ -383,7 +406,6 @@
                     const d = docSnap.data(); 
                     const id = docSnap.id;
                     
-                    // Save to cache
                     leadersCache[id] = d;
 
                     list.innerHTML += `
@@ -427,7 +449,6 @@
             document.getElementById('leader-cancel-btn').classList.add('hidden');
         };
 
-        // Shared Global Delete Function
         window.deleteDocItem = async (collectionName, id) => {
             if (confirm("Are you sure you want to delete this item?")) {
                 try {
@@ -438,7 +459,6 @@
             }
         };
 
-        // Expose Functions
         window.resetActivityForm = resetActivityForm;
         window.resetLeaderForm = resetLeaderForm;
     </script>
