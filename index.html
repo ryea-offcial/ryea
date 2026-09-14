@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohingya Hope Initiative - Clone</title>
+    <!-- Tailwind CSS for Responsive Mobile Design -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-emerald-700">ROHINGYA HOPE</h1>
+            <nav class="hidden md:flex space-x-6 font-medium">
+                <a href="#home" class="hover:text-emerald-600">হোম</a>
+                <a href="#about" class="hover:text-emerald-600">আমাদের সম্পর্কে</a>
+                <a href="#projects" class="hover:text-emerald-600">প্রজেক্টসমূহ</a>
+                <a href="#contact" class="hover:text-emerald-600">যোগাযোগ</a>
+            </nav>
+            <a href="#donate" class="bg-emerald-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-emerald-700">ডানেট করুন</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-emerald-800 text-white py-20 px-4 text-center">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-4">রোহিঙ্গা জনগোষ্ঠীর মানুষের জন্য আশা ও পুনর্গঠন</h2>
+            <p class="text-lg md:text-xl mb-8 text-emerald-100">আমরা শিক্ষা, স্বাস্থ্যসেবা ও জীবনযাত্রার মান উন্নয়নে নিয়োজিত একটি অলাভজনক সংস্থা।</p>
+            <div class="space-x-4">
+                <a href="#donate" class="bg-amber-500 hover:bg-amber-600 text-gray-900 font-bold px-6 py-3 rounded-lg shadow-lg">সাহায্য করুন</a>
+                <a href="#about" class="border border-white hover:bg-white hover:text-emerald-800 font-bold px-6 py-3 rounded-lg">আরও জানুন</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Stats -->
+    <section class="bg-emerald-50 py-10">
+        <div class="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="p-4">
+                <h3 class="text-3xl font-bold text-emerald-700">১০,০০০+</h3>
+                <p class="text-sm text-gray-600">উপকারভোগী</p>
+            </div>
+            <div class="p-4">
+                <h3 class="text-3xl font-bold text-emerald-700">৫০+</h3>
+                <p class="text-sm text-gray-600">প্রজেক্ট সম্পন্ন</p>
+            </div>
+            <div class="p-4">
+                <h3 class="text-3xl font-bold text-emerald-700">১০০+</h3>
+                <p class="text-sm text-gray-600">স্বেচ্ছাসেবক</p>
+            </div>
+            <div class="p-4">
+                <h3 class="text-3xl font-bold text-emerald-700">২৪/৭</h3>
+                <p class="text-sm text-gray-600">জরুরি সেবা</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">আমাদের বর্তমান কার্যক্রম</h2>
+        <div id="projects-container" class="grid md:grid-cols-3 gap-8">
+            <!-- Dynamic Data from Firebase will be loaded here -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="https://via.placeholder.com/400x250" alt="Project Image" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2">জরুরি খাবার বিতরণ</h3>
+                    <p class="text-gray-600 text-sm mb-4">ক্যাম্পের সুবিধাবঞ্চিত পরিবারগুলোর মাঝে পুষ্টিকর খাদ্য সামগ্রী বিতরণ।</p>
+                    <a href="#donate" class="text-emerald-600 font-bold hover:underline">সহযোগিতা করুন &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-8 px-4 text-center">
+        <p>&copy; 2026 Rohingya Hope Initiative. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
