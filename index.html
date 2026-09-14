@@ -39,7 +39,7 @@
         <div id="search-bar" class="hidden absolute top-full left-0 w-full bg-amber-300 p-3 shadow-md z-40 border-t border-amber-400">
             <div class="container mx-auto flex items-center bg-white rounded px-3 py-1 border border-gray-400">
                 <i class="fa-solid fa-magnifying-glass text-gray-500 mr-2"></i>
-                <input type="text" id="search-input" placeholder="Search page content or campaigns..." class="w-full bg-transparent focus:outline-none text-sm text-gray-800 font-medium py-1">
+                <input type="text" id="search-input" placeholder="Search page content or work..." class="w-full bg-transparent focus:outline-none text-sm text-gray-800 font-medium py-1">
                 <button id="search-close" class="text-gray-500 ml-2 hover:text-gray-800">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
@@ -80,17 +80,17 @@
             </div>
         </section>
 
-        <!-- Dynamic Projects Section -->
-        <section id="work" class="bg-custom-dark text-white py-8 px-4 border-t border-teal-700">
+        <!-- Dynamic Recent Activities & Work Section -->
+        <section id="work" class="bg-custom-dark text-white py-8 px-4 border-t border-teal-700 searchable-section">
             <div class="container mx-auto max-w-2xl">
-                <h2 class="text-xl font-bold uppercase tracking-wider mb-6 text-center text-amber-300">Current Campaigns & Initiatives</h2>
+                <h2 class="text-xl font-bold uppercase tracking-wider mb-6 text-center text-amber-300">Recent Activities & Work</h2>
                 
-                <div id="projects-loader" class="text-center py-8">
+                <div id="activities-loader" class="text-center py-8">
                     <i class="fa-solid fa-circle-notch fa-spin text-3xl text-amber-400"></i>
-                    <p class="text-gray-300 text-sm mt-2">Loading campaigns...</p>
+                    <p class="text-gray-300 text-sm mt-2">Loading recent activities...</p>
                 </div>
 
-                <div id="projects-container" class="space-y-6"></div>
+                <div id="activities-container" class="space-y-6"></div>
 
                 <div class="text-center mt-8">
                     <button onclick="openDonateModal()" class="bg-emerald-300 hover:bg-emerald-400 text-gray-900 font-extrabold uppercase py-3 px-8 rounded shadow transition inline-block">
@@ -102,7 +102,7 @@
 
         <!-- About / Preamble Section -->
         <section id="about" class="py-12 px-6 max-w-2xl mx-auto text-center searchable-section">
-            <h2 class="text-2xl font-black uppercase text-gray-900 mb-4 tracking-wide">PREAMBLE</h2>
+            <h2 class="text-2xl font-black uppercase text-gray-900 mb-4 tracking-wide">WELCOME TO RYEA</h2>
             <p class="text-gray-700 leading-relaxed font-medium mb-8 text-justify">
                 We, the Rohingya youths, born into displacement yet driven by hope, unite with a shared determination to reclaim our dignity, strengthen our communities, and build a future rooted in justice, knowledge, and self-reliance. Despite statelessness, persecution, and prolonged displacement, we refuse to be defined by victimhood. This manifesto sets forth our collective vision, mission, principles and commitments for empowering Rohingya youths as agents of positive change.
             </p>
@@ -173,8 +173,8 @@
         <section id="leadership" class="py-12 px-6 searchable-section">
             <div class="max-w-2xl mx-auto">
                 <h2 class="text-2xl font-black uppercase text-gray-900 mb-8 text-center tracking-wide">OUR LEADERSHIP</h2>
-                <div class="grid md:grid-cols-2 gap-6">
-                    <!-- Leader 1 -->
+                <div id="leaders-container" class="grid md:grid-cols-2 gap-6">
+                    <!-- Leader items will load dynamically here -->
                     <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
                         <h3 class="text-lg font-bold text-gray-900">Mr. Mohammed Zubair</h3>
                         <p class="text-xs uppercase font-bold text-teal-700 mb-2">Founder & Chief Executive Officer</p>
@@ -183,7 +183,6 @@
                             <a href="mailto:Khanmdzubair2025@gmail.com" class="hover:underline">Khanmdzubair2025@gmail.com</a>
                         </p>
                     </div>
-                    <!-- Leader 2 -->
                     <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
                         <h3 class="text-lg font-bold text-gray-900">M. Yeasin</h3>
                         <p class="text-xs uppercase font-bold text-teal-700 mb-2">Co-Founder & Managing Director</p>
@@ -387,7 +386,7 @@
             serverTimestamp 
         } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // Your Updated Firebase Config Connected
+        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyDJL8W3-yifNW_nD8hbDnYms7mLWTx10Ic",
             authDomain: "ryea-6a3ef.firebaseapp.com",
@@ -432,40 +431,40 @@
             }
         });
 
-        // Load Projects Dynamically
-        const projectsContainer = document.getElementById('projects-container');
-        const projectsLoader = document.getElementById('projects-loader');
+        // Fetch & Load Recent Activities Dynamically
+        const activitiesContainer = document.getElementById('activities-container');
+        const activitiesLoader = document.getElementById('activities-loader');
 
-        const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
+        const q = query(collection(db, "activities"), orderBy("createdAt", "desc"));
         onSnapshot(q, (snapshot) => {
-            projectsLoader.classList.add('hidden');
-            projectsContainer.innerHTML = '';
+            activitiesLoader.classList.add('hidden');
+            activitiesContainer.innerHTML = '';
 
             if (snapshot.docs.length === 0) {
-                projectsContainer.innerHTML = `<p class="text-center text-gray-300 py-4">No active campaigns available at the moment.</p>`;
+                activitiesContainer.innerHTML = `<p class="text-center text-gray-300 py-4">No recent activities updated yet.</p>`;
                 return;
             }
 
             snapshot.docs.forEach((docSnap) => {
-                const project = docSnap.data();
+                const activity = docSnap.data();
                 const card = document.createElement('div');
                 card.className = "bg-white text-gray-900 rounded-lg overflow-hidden shadow-md border border-gray-200";
                 card.innerHTML = `
-                    <img src="${project.image}" alt="${project.title}" class="w-full h-52 object-cover bg-gray-100" onerror="this.src='https://via.placeholder.com/500x300?text=Campaign+Image'">
+                    <img src="${activity.image}" alt="${activity.title}" class="w-full h-52 object-cover bg-gray-100" onerror="this.src='https://via.placeholder.com/500x300?text=Activity+Image'">
                     <div class="p-5">
-                        <h3 class="font-extrabold text-lg leading-snug text-gray-900 mb-2">${project.title}</h3>
-                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">${project.description}</p>
-                        <button onclick="openDonateModal()" class="w-full text-center bg-amber-400 hover:bg-amber-500 text-gray-900 font-bold py-2 px-4 rounded uppercase text-sm transition">
-                            Donate Now
-                        </button>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-teal-800 bg-teal-100 px-2.5 py-1 rounded">${activity.date || 'Recent'}</span>
+                        </div>
+                        <h3 class="font-extrabold text-lg leading-snug text-gray-900 mb-2">${activity.title}</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">${activity.description}</p>
                     </div>
                 `;
-                projectsContainer.appendChild(card);
+                activitiesContainer.appendChild(card);
             });
         }, (error) => {
-            console.error("Error fetching projects:", error);
-            projectsLoader.classList.add('hidden');
-            projectsContainer.innerHTML = `<p class="text-center text-gray-300 py-4">No active campaigns available at the moment.</p>`;
+            console.error("Error fetching activities:", error);
+            activitiesLoader.classList.add('hidden');
+            activitiesContainer.innerHTML = `<p class="text-center text-gray-300 py-4">No recent activities available.</p>`;
         });
     </script>
 </body>
