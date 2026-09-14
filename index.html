@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rohingya Hope Initiative - Clone</title>
-    <!-- Tailwind CSS for Responsive Mobile Design -->
+    <title>Rohingya Hope Initiative</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -15,12 +15,12 @@
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <h1 class="text-xl font-bold text-emerald-700">ROHINGYA HOPE</h1>
             <nav class="hidden md:flex space-x-6 font-medium">
-                <a href="#home" class="hover:text-emerald-600">হোম</a>
-                <a href="#about" class="hover:text-emerald-600">আমাদের সম্পর্কে</a>
-                <a href="#projects" class="hover:text-emerald-600">প্রজেক্টসমূহ</a>
-                <a href="#contact" class="hover:text-emerald-600">যোগাযোগ</a>
+                <a href="#home" class="hover:text-emerald-600 transition">হোম</a>
+                <a href="#about" class="hover:text-emerald-600 transition">আমাদের সম্পর্কে</a>
+                <a href="#projects" class="hover:text-emerald-600 transition">প্রজেক্টসমূহ</a>
+                <a href="#contact" class="hover:text-emerald-600 transition">যোগাযোগ</a>
             </nav>
-            <a href="#donate" class="bg-emerald-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-emerald-700">ডানেট করুন</a>
+            <a href="#donate" class="bg-emerald-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-emerald-700 transition">ডোনেট করুন</a>
         </div>
     </header>
 
@@ -30,14 +30,14 @@
             <h2 class="text-3xl md:text-5xl font-extrabold mb-4">রোহিঙ্গা জনগোষ্ঠীর মানুষের জন্য আশা ও পুনর্গঠন</h2>
             <p class="text-lg md:text-xl mb-8 text-emerald-100">আমরা শিক্ষা, স্বাস্থ্যসেবা ও জীবনযাত্রার মান উন্নয়নে নিয়োজিত একটি অলাভজনক সংস্থা।</p>
             <div class="space-x-4">
-                <a href="#donate" class="bg-amber-500 hover:bg-amber-600 text-gray-900 font-bold px-6 py-3 rounded-lg shadow-lg">সাহায্য করুন</a>
-                <a href="#about" class="border border-white hover:bg-white hover:text-emerald-800 font-bold px-6 py-3 rounded-lg">আরও জানুন</a>
+                <a href="#donate" class="bg-amber-500 hover:bg-amber-600 text-gray-900 font-bold px-6 py-3 rounded-lg shadow-lg transition">সাহায্য করুন</a>
+                <a href="#about" class="border border-white hover:bg-white hover:text-emerald-800 font-bold px-6 py-3 rounded-lg transition">আরও জানুন</a>
             </div>
         </div>
     </section>
 
     <!-- Impact Stats -->
-    <section class="bg-emerald-50 py-10">
+    <section class="bg-emerald-50 py-10 border-y border-emerald-100">
         <div class="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div class="p-4">
                 <h3 class="text-3xl font-bold text-emerald-700">১০,০০০+</h3>
@@ -61,17 +61,15 @@
     <!-- Projects Section -->
     <section id="projects" class="py-16 container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">আমাদের বর্তমান কার্যক্রম</h2>
-        <div id="projects-container" class="grid md:grid-cols-3 gap-8">
-            <!-- Dynamic Data from Firebase will be loaded here -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="https://via.placeholder.com/400x250" alt="Project Image" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">জরুরি খাবার বিতরণ</h3>
-                    <p class="text-gray-600 text-sm mb-4">ক্যাম্পের সুবিধাবঞ্চিত পরিবারগুলোর মাঝে পুষ্টিকর খাদ্য সামগ্রী বিতরণ।</p>
-                    <a href="#donate" class="text-emerald-600 font-bold hover:underline">সহযোগিতা করুন &rarr;</a>
-                </div>
-            </div>
+        
+        <!-- Loading Spinner -->
+        <div id="projects-loader" class="text-center py-12">
+            <i class="fa-solid fa-circle-notch fa-spin text-4xl text-emerald-600"></i>
+            <p class="text-gray-500 mt-2">কার্যক্রমসমূহ লোড হচ্ছে...</p>
         </div>
+
+        <!-- Dynamic Projects Container -->
+        <div id="projects-container" class="grid md:grid-cols-3 gap-8"></div>
     </section>
 
     <!-- Footer -->
@@ -79,5 +77,77 @@
         <p>&copy; 2026 Rohingya Hope Initiative. All rights reserved.</p>
     </footer>
 
+    <!-- Firebase SDK Modules -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { 
+            getFirestore, 
+            collection, 
+            onSnapshot, 
+            query, 
+            orderBy 
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // ==========================================
+        // Firebase Configuration (এখানে আপনার আসল ক্র্যাডেনশিয়ালগুলো বসান)
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const projectsContainer = document.getElementById('projects-container');
+        const projectsLoader = document.getElementById('projects-loader');
+
+        // Fetch Live Projects from Firestore Database
+        const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
+        
+        onSnapshot(q, (snapshot) => {
+            projectsLoader.classList.add('hidden');
+            projectsContainer.innerHTML = '';
+
+            if (snapshot.docs.length === 0) {
+                projectsContainer.innerHTML = `
+                    <div class="col-span-full text-center py-8 text-gray-500">
+                        বর্তমানে কোনো সক্রিয় প্রজেক্ট পাওয়া যায়নি।
+                    </div>
+                `;
+                return;
+            }
+
+            snapshot.docs.forEach((docSnap) => {
+                const project = docSnap.data();
+
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 flex flex-col justify-between transition hover:shadow-lg";
+                card.innerHTML = `
+                    <div>
+                        <img src="${project.image}" alt="${project.title}" class="w-full h-48 object-cover bg-gray-100" onerror="this.src='https://via.placeholder.com/400x250?text=No+Image'">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-2 text-gray-800">${project.title}</h3>
+                            <p class="text-gray-600 text-sm mb-4 leading-relaxed">${project.description}</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <a href="${project.donateLink || '#donate'}" class="inline-block w-full text-center bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold py-2 px-4 rounded-lg transition">
+                            সহযোগিতা করুন &rarr;
+                        </a>
+                    </div>
+                `;
+                projectsContainer.appendChild(card);
+            });
+        }, (error) => {
+            console.error("Error loading projects: ", error);
+            projectsLoader.innerHTML = `<p class="text-red-500">ডাটা লোড করতে সমস্যা হয়েছে!</p>`;
+        });
+    </script>
 </body>
 </html>
