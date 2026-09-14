@@ -53,11 +53,15 @@
         <!-- Navigation Tabs -->
         <div class="bg-white border-b sticky top-[68px] z-30 shadow-sm">
             <div class="container mx-auto px-4 flex space-x-4 overflow-x-auto">
-                <button onclick="switchTab('activities')" id="tab-btn-activities" class="tab-btn border-b-2 border-teal-800 text-teal-800 font-bold py-3 px-4 flex items-center gap-2">
-                    <i class="fa-solid fa-newspaper"></i> Recent Activities & Work
+                <button onclick="switchTab('activities')" id="tab-btn-activities" class="tab-btn border-b-2 border-teal-800 text-teal-800 font-bold py-3 px-4 flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-newspaper"></i> Recent Activities
                 </button>
-                <button onclick="switchTab('leadership')" id="tab-btn-leadership" class="tab-btn border-b-2 border-transparent text-gray-600 hover:text-teal-800 font-bold py-3 px-4 flex items-center gap-2">
+                <button onclick="switchTab('leadership')" id="tab-btn-leadership" class="tab-btn border-b-2 border-transparent text-gray-600 hover:text-teal-800 font-bold py-3 px-4 flex items-center gap-2 whitespace-nowrap">
                     <i class="fa-solid fa-users"></i> Leadership Team
+                </button>
+                <button onclick="switchTab('donations')" id="tab-btn-donations" class="tab-btn border-b-2 border-transparent text-gray-600 hover:text-teal-800 font-bold py-3 px-4 flex items-center gap-2 whitespace-nowrap relative">
+                    <i class="fa-solid fa-hand-holding-dollar"></i> Donations List
+                    <span id="donation-count-badge" class="bg-amber-500 text-xs text-gray-900 font-black px-2 py-0.5 rounded-full hidden">0</span>
                 </button>
             </div>
         </div>
@@ -65,7 +69,7 @@
         <!-- Dashboard Content -->
         <main class="container mx-auto px-4 py-8">
 
-            <!-- 1. RECENT ACTIVITIES TAB CONTENT -->
+            <!-- 1. RECENT ACTIVITIES TAB -->
             <div id="tab-activities" class="tab-content grid lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-1">
                     <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 sticky top-36">
@@ -76,12 +80,12 @@
                             <input type="hidden" id="activity-edit-id">
                             <div>
                                 <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Activity Title *</label>
-                                <input type="text" id="activity-title" placeholder="যেমন: Community Engagement Meeting" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none">
+                                <input type="text" id="activity-title" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Photo URLs *</label>
                                 <textarea id="activity-image-urls" rows="4" placeholder="https://image1.jpg&#10;https://image2.jpg" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none"></textarea>
-                                <span class="text-[10px] text-gray-500">একাধিক ছবি দিতে কমা (,) অথবা নতুন লাইনে/Enter চেপে দিন।</span>
+                                <span class="text-[10px] text-gray-500">কমা (,) অথবা নতুন লাইনে/Enter চেপে একাধিক লিংক দিন।</span>
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Date *</label>
@@ -89,7 +93,7 @@
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Details/Description *</label>
-                                <textarea id="activity-desc" rows="3" placeholder="সংক্ষেপে কার্যক্রমের বিবরণ লিখুন..." required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none"></textarea>
+                                <textarea id="activity-desc" rows="3" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none"></textarea>
                             </div>
                             <div class="flex gap-2">
                                 <button type="submit" id="activity-submit-btn" class="w-full bg-teal-800 hover:bg-teal-900 text-white font-bold py-2 rounded-lg shadow-sm transition">Save Activity</button>
@@ -106,7 +110,7 @@
                 </div>
             </div>
 
-            <!-- 2. LEADERSHIP TAB CONTENT -->
+            <!-- 2. LEADERSHIP TAB -->
             <div id="tab-leadership" class="tab-content hidden grid lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-1">
                     <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 sticky top-36">
@@ -121,7 +125,7 @@
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Designation/Role *</label>
-                                <input type="text" id="leader-role" placeholder="e.g. Founder & CEO" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none">
+                                <input type="text" id="leader-role" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Email *</label>
@@ -142,6 +146,38 @@
                 </div>
             </div>
 
+            <!-- 3. DONATIONS TAB (NEW) -->
+            <div id="tab-donations" class="tab-content hidden">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <div class="flex justify-between items-center mb-6 pb-2 border-b">
+                        <div>
+                            <h2 class="text-lg font-bold text-gray-800">Donation Requests & Backers</h2>
+                            <p class="text-xs text-gray-500">Manage all incoming donations submitted from the website</p>
+                        </div>
+                    </div>
+
+                    <!-- Donations Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-gray-600">
+                            <thead class="text-xs uppercase bg-teal-800 text-white rounded-lg">
+                                <tr>
+                                    <th class="p-3">Donor Name</th>
+                                    <th class="p-3">Contact</th>
+                                    <th class="p-3">Amount</th>
+                                    <th class="p-3">Payment Method</th>
+                                    <th class="p-3">Message</th>
+                                    <th class="p-3">Status</th>
+                                    <th class="p-3 text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="donations-list-table">
+                                <!-- Data will render here dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 
@@ -151,7 +187,6 @@
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDJL8W3-yifNW_nD8hbDnYms7mLWTx10Ic",
             authDomain: "ryea-6a3ef.firebaseapp.com",
@@ -181,7 +216,7 @@
             activeBtn.classList.remove('border-transparent', 'text-gray-600');
         };
 
-        // Authentication State
+        // Authentication
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById('auth-container').classList.add('hidden');
@@ -189,6 +224,7 @@
                 document.getElementById('user-email-display').textContent = user.email;
                 loadActivities();
                 loadLeadership();
+                loadDonations();
             } else {
                 document.getElementById('auth-container').classList.remove('hidden');
                 document.getElementById('dashboard-container').classList.add('hidden');
@@ -220,7 +256,6 @@
 
         document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
 
-        // Helper to parse multiple URLs (Separated by comma OR newline)
         function parseUrls(rawText) {
             if (!rawText) return [];
             return rawText
@@ -229,13 +264,12 @@
                 .filter(url => url.length > 0 && url.startsWith('http'));
         }
 
-        // ================= 1. ACTIVITIES CRUD =================
+        // ================= 1. ACTIVITIES =================
         const activityForm = document.getElementById('activity-form');
         activityForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const editId = document.getElementById('activity-edit-id').value;
             const submitBtn = document.getElementById('activity-submit-btn');
-            
             const rawUrls = document.getElementById('activity-image-urls').value;
             const imageUrls = parseUrls(rawUrls);
 
@@ -244,14 +278,13 @@
                 return;
             }
 
-            submitBtn.disabled = true; 
-            submitBtn.innerText = "Saving...";
+            submitBtn.disabled = true; submitBtn.innerText = "Saving...";
 
             try {
                 let data = {
                     title: document.getElementById('activity-title').value,
                     images: imageUrls,
-                    image: imageUrls[0] || '', // First image as fallback
+                    image: imageUrls[0] || '',
                     date: document.getElementById('activity-date').value,
                     description: document.getElementById('activity-desc').value,
                 };
@@ -263,18 +296,9 @@
                     await addDoc(collection(db, "activities"), data);
                 }
                 resetActivityForm();
-                alert(`Successfully saved ${imageUrls.length} photos for this activity!`);
-            } catch (err) { 
-                if (err.message.includes("No document to update")) {
-                    alert("The item no longer exists in database. Creating new entry instead.");
-                    document.getElementById('activity-edit-id').value = '';
-                } else {
-                    alert("Error: " + err.message); 
-                }
-            } finally { 
-                submitBtn.disabled = false; 
-                submitBtn.innerText = "Save Activity"; 
-            }
+                alert(`Successfully saved ${imageUrls.length} photos!`);
+            } catch (err) { alert("Error: " + err.message); } 
+            finally { submitBtn.disabled = false; submitBtn.innerText = "Save Activity"; }
         });
 
         function loadActivities() {
@@ -282,27 +306,14 @@
             onSnapshot(q, (snapshot) => {
                 const list = document.getElementById('activities-list');
                 list.innerHTML = '';
-                
                 if (snapshot.docs.length === 0) {
                     list.innerHTML = '<p class="text-center text-gray-500 py-4">No activities added yet.</p>';
                     return;
                 }
-
                 snapshot.docs.forEach(docSnap => {
-                    const d = docSnap.data(); 
-                    const id = docSnap.id;
-                    
+                    const d = docSnap.data(); const id = docSnap.id;
                     activitiesCache[id] = d;
-
-                    let imagesArr = [];
-                    if (Array.isArray(d.images) && d.images.length > 0) {
-                        imagesArr = d.images;
-                    } else if (typeof d.images === 'string') {
-                        imagesArr = parseUrls(d.images);
-                    } else if (d.image) {
-                        imagesArr = parseUrls(d.image);
-                    }
-
+                    let imagesArr = Array.isArray(d.images) ? d.images : parseUrls(d.image);
                     const primaryImg = imagesArr[0] || 'https://via.placeholder.com/150';
 
                     list.innerHTML += `
@@ -315,8 +326,8 @@
                                 </div>
                             </div>
                             <div class="flex gap-2">
-                                <button onclick="editActivity('${id}')" class="text-blue-600 hover:text-blue-800 font-bold text-xs bg-blue-50 px-2.5 py-1 rounded border border-blue-200">Edit</button>
-                                <button onclick="deleteDocItem('activities', '${id}')" class="text-red-600 hover:text-red-800 font-bold text-xs bg-red-50 px-2.5 py-1 rounded border border-red-200">Delete</button>
+                                <button onclick="editActivity('${id}')" class="text-blue-600 font-bold text-xs bg-blue-50 px-2.5 py-1 rounded border">Edit</button>
+                                <button onclick="deleteDocItem('activities', '${id}')" class="text-red-600 font-bold text-xs bg-red-50 px-2.5 py-1 rounded border">Delete</button>
                             </div>
                         </div>`;
                 });
@@ -324,24 +335,13 @@
         }
 
         window.editActivity = (id) => {
-            const data = activitiesCache[id];
-            if (!data) return;
-
-            let imagesArr = [];
-            if (Array.isArray(data.images)) {
-                imagesArr = data.images;
-            } else if (typeof data.images === 'string') {
-                imagesArr = parseUrls(data.images);
-            } else if (data.image) {
-                imagesArr = parseUrls(data.image);
-            }
-
+            const data = activitiesCache[id]; if (!data) return;
+            let imagesArr = Array.isArray(data.images) ? data.images : parseUrls(data.image);
             document.getElementById('activity-edit-id').value = id;
             document.getElementById('activity-title').value = data.title || '';
             document.getElementById('activity-image-urls').value = imagesArr.join('\n');
             document.getElementById('activity-date').value = data.date || '';
             document.getElementById('activity-desc').value = data.description || '';
-            
             document.getElementById('activity-form-title').innerText = "Edit Activity";
             document.getElementById('activity-cancel-btn').classList.remove('hidden');
         };
@@ -353,15 +353,13 @@
             document.getElementById('activity-cancel-btn').classList.add('hidden');
         };
 
-        // ================= 2. LEADERSHIP CRUD =================
+        // ================= 2. LEADERSHIP =================
         const leaderForm = document.getElementById('leader-form');
         leaderForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const editId = document.getElementById('leader-edit-id').value;
             const submitBtn = document.getElementById('leader-submit-btn');
-            
-            submitBtn.disabled = true; 
-            submitBtn.innerText = "Saving...";
+            submitBtn.disabled = true; submitBtn.innerText = "Saving...";
 
             try {
                 let data = {
@@ -369,7 +367,6 @@
                     role: document.getElementById('leader-role').value,
                     email: document.getElementById('leader-email').value
                 };
-
                 if (editId) {
                     await updateDoc(doc(db, "leaders", editId), data);
                 } else {
@@ -378,17 +375,8 @@
                 }
                 resetLeaderForm();
                 alert("Leader saved successfully!");
-            } catch (err) { 
-                if (err.message.includes("No document to update")) {
-                    alert("Leader entry missing from database. Creating new record instead.");
-                    document.getElementById('leader-edit-id').value = '';
-                } else {
-                    alert("Error: " + err.message); 
-                }
-            } finally { 
-                submitBtn.disabled = false; 
-                submitBtn.innerText = "Save Leader"; 
-            }
+            } catch (err) { alert("Error: " + err.message); } 
+            finally { submitBtn.disabled = false; submitBtn.innerText = "Save Leader"; }
         });
 
         function loadLeadership() {
@@ -396,24 +384,17 @@
             onSnapshot(q, (snapshot) => {
                 const list = document.getElementById('leadership-list');
                 list.innerHTML = '';
-
                 if (snapshot.docs.length === 0) {
                     list.innerHTML = '<p class="text-center text-gray-500 py-4">No team members added yet.</p>';
                     return;
                 }
-
                 snapshot.docs.forEach(docSnap => {
-                    const d = docSnap.data(); 
-                    const id = docSnap.id;
-                    
+                    const d = docSnap.data(); const id = docSnap.id;
                     leadersCache[id] = d;
-
                     list.innerHTML += `
                         <div class="flex items-center justify-between p-3 bg-gray-50 border rounded-lg">
                             <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-full bg-teal-100 text-teal-800 flex items-center justify-center font-bold text-sm">
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
+                                <div class="w-10 h-10 rounded-full bg-teal-100 text-teal-800 flex items-center justify-center font-bold text-sm"><i class="fa-solid fa-user"></i></div>
                                 <div>
                                     <h4 class="font-bold text-sm">${d.name}</h4>
                                     <p class="text-xs text-teal-700 font-semibold">${d.role}</p>
@@ -421,8 +402,8 @@
                                 </div>
                             </div>
                             <div class="flex gap-2">
-                                <button onclick="editLeader('${id}')" class="text-blue-600 hover:text-blue-800 font-bold text-xs bg-blue-50 px-2.5 py-1 rounded border border-blue-200">Edit</button>
-                                <button onclick="deleteDocItem('leaders', '${id}')" class="text-red-600 hover:text-red-800 font-bold text-xs bg-red-50 px-2.5 py-1 rounded border border-red-200">Delete</button>
+                                <button onclick="editLeader('${id}')" class="text-blue-600 font-bold text-xs bg-blue-50 px-2.5 py-1 rounded border">Edit</button>
+                                <button onclick="deleteDocItem('leaders', '${id}')" class="text-red-600 font-bold text-xs bg-red-50 px-2.5 py-1 rounded border">Delete</button>
                             </div>
                         </div>`;
                 });
@@ -430,14 +411,11 @@
         }
 
         window.editLeader = (id) => {
-            const data = leadersCache[id];
-            if (!data) return;
-
+            const data = leadersCache[id]; if (!data) return;
             document.getElementById('leader-edit-id').value = id;
             document.getElementById('leader-name').value = data.name || '';
             document.getElementById('leader-role').value = data.role || '';
             document.getElementById('leader-email').value = data.email || '';
-            
             document.getElementById('leader-form-title').innerText = "Edit Leader";
             document.getElementById('leader-cancel-btn').classList.remove('hidden');
         };
@@ -449,13 +427,66 @@
             document.getElementById('leader-cancel-btn').classList.add('hidden');
         };
 
+        // ================= 3. DONATIONS (NEW MODULE) =================
+        function loadDonations() {
+            const q = query(collection(db, "donations"), orderBy("createdAt", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const tableBody = document.getElementById('donations-list-table');
+                const badge = document.getElementById('donation-count-badge');
+                tableBody.innerHTML = '';
+
+                if (snapshot.docs.length > 0) {
+                    badge.innerText = snapshot.docs.length;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                    tableBody.innerHTML = '<tr><td colspan="7" class="text-center py-6 text-gray-500">No donations submitted yet.</td></tr>';
+                    return;
+                }
+
+                snapshot.docs.forEach(docSnap => {
+                    const d = docSnap.data();
+                    const id = docSnap.id;
+                    const status = d.status || 'Pending';
+
+                    const statusBg = status === 'Verified' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800';
+
+                    tableBody.innerHTML += `
+                        <tr class="border-b hover:bg-gray-50 transition">
+                            <td class="p-3 font-bold text-gray-900">${d.name || 'Anonymous'}</td>
+                            <td class="p-3">
+                                <div class="text-xs">${d.email || 'N/A'}</div>
+                                <div class="text-xs text-gray-500 font-semibold">${d.phone || ''}</div>
+                            </td>
+                            <td class="p-3 font-extrabold text-teal-800">${d.amount || 0} ${d.currency || 'USD'}</td>
+                            <td class="p-3 text-xs">${d.paymentMethod || 'N/A'}</td>
+                            <td class="p-3 text-xs italic max-w-xs truncate">${d.message || '-'}</td>
+                            <td class="p-3">
+                                <span class="px-2 py-1 rounded text-xs font-bold ${statusBg}">${status}</span>
+                            </td>
+                            <td class="p-3 text-center space-x-1">
+                                <button onclick="toggleDonationStatus('${id}', '${status}')" class="bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded border font-semibold">
+                                    ${status === 'Verified' ? 'Mark Pending' : 'Verify'}
+                                </button>
+                                <button onclick="deleteDocItem('donations', '${id}')" class="bg-red-50 hover:bg-red-100 text-red-600 text-xs px-2 py-1 rounded border font-semibold">Delete</button>
+                            </td>
+                        </tr>`;
+                });
+            });
+        }
+
+        window.toggleDonationStatus = async (id, currentStatus) => {
+            const newStatus = currentStatus === 'Verified' ? 'Pending' : 'Verified';
+            try {
+                await updateDoc(doc(db, "donations", id), { status: newStatus });
+            } catch (err) { alert("Error updating status: " + err.message); }
+        };
+
         window.deleteDocItem = async (collectionName, id) => {
             if (confirm("Are you sure you want to delete this item?")) {
                 try {
                     await deleteDoc(doc(db, collectionName, id));
-                } catch (err) { 
-                    alert("Error deleting: " + err.message); 
-                }
+                } catch (err) { alert("Error deleting: " + err.message); }
             }
         };
 
