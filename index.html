@@ -102,7 +102,7 @@
 
         <!-- About / Preamble Section -->
         <section id="about" class="py-12 px-6 max-w-2xl mx-auto text-center searchable-section">
-            <h2 class="text-2xl font-black uppercase text-gray-900 mb-4 tracking-wide">WELCOME TO RYEA</h2>
+            <h2 class="text-2xl font-black uppercase text-gray-900 mb-4 tracking-wide">PREAMBLE</h2>
             <p class="text-gray-700 leading-relaxed font-medium mb-8 text-justify">
                 We, the Rohingya youths, born into displacement yet driven by hope, unite with a shared determination to reclaim our dignity, strengthen our communities, and build a future rooted in justice, knowledge, and self-reliance. Despite statelessness, persecution, and prolonged displacement, we refuse to be defined by victimhood. This manifesto sets forth our collective vision, mission, principles and commitments for empowering Rohingya youths as agents of positive change.
             </p>
@@ -387,13 +387,14 @@
             serverTimestamp 
         } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        // Your Updated Firebase Config Connected
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "AIzaSyDJL8W3-yifNW_nD8hbDnYms7mLWTx10Ic",
+            authDomain: "ryea-6a3ef.firebaseapp.com",
+            projectId: "ryea-6a3ef",
+            storageBucket: "ryea-6a3ef.firebasestorage.app",
+            messagingSenderId: "967055218910",
+            appId: "1:967055218910:web:cfda3fc1d92a18ee2d4a4f"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -461,6 +462,10 @@
                 `;
                 projectsContainer.appendChild(card);
             });
+        }, (error) => {
+            console.error("Error fetching projects:", error);
+            projectsLoader.classList.add('hidden');
+            projectsContainer.innerHTML = `<p class="text-center text-gray-300 py-4">No active campaigns available at the moment.</p>`;
         });
     </script>
 </body>
