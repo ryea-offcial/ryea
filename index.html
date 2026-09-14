@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rohingya Hope Initiative (RHI)</title>
+    <title>Rohingya Youth Empowerment Association (RYEA)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -19,8 +19,10 @@
     <!-- Top Navigation Header -->
     <header class="bg-amber-400 py-3 px-4 sticky top-0 z-50 shadow-sm">
         <div class="container mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <span class="font-extrabold text-xl text-gray-900 tracking-wider">RHI</span>
+            <div class="flex items-center space-x-3">
+                <!-- Website Logo -->
+                <img src="IMG-20260914-WA0064.jpg" alt="RYEA Logo" class="h-10 w-10 rounded-full object-cover border border-gray-800" onerror="this.style.display='none'">
+                <span class="font-extrabold text-xl text-gray-900 tracking-wider">RYEA</span>
             </div>
             <div class="flex items-center space-x-4">
                 <button class="text-gray-800"><i class="fa-solid fa-magnifying-glass text-lg"></i></button>
@@ -31,10 +33,10 @@
 
     <!-- Hero / Banner Section -->
     <section class="bg-custom-dark text-white text-center py-12 px-4 relative">
-        <div class="max-w-xl mx-auto">
+        <div class="max-w-2xl mx-auto">
             <h1 class="text-2xl md:text-4xl font-extrabold uppercase tracking-wide leading-snug mb-4">
-                Rohingya Hope Initiative<br>
-                <span class="text-amber-300">BRINGING HOPE, BUILDING FUTURE</span>
+                Rohingya Youth Empowerment Association<br>
+                <span class="text-amber-300">RECLAIMING DIGNITY, BUILDING FUTURE</span>
             </h1>
             <div class="bg-amber-400 text-gray-900 font-bold uppercase py-2 px-6 rounded inline-block text-lg shadow-md mb-6">
                 SUPPORT OUR WORK
@@ -45,7 +47,7 @@
     <!-- Dynamic Projects Section (Firestore Integrated) -->
     <section class="bg-custom-dark text-white py-8 px-4 border-t border-teal-700">
         <div class="container mx-auto max-w-2xl">
-            <h2 class="text-xl font-bold uppercase tracking-wider mb-6 text-center text-amber-300">Current Campaigns & Projects</h2>
+            <h2 class="text-xl font-bold uppercase tracking-wider mb-6 text-center text-amber-300">Current Campaigns & Initiatives</h2>
             
             <!-- Loading Indicator -->
             <div id="projects-loader" class="text-center py-8">
@@ -64,51 +66,53 @@
         </div>
     </section>
 
-    <!-- Welcome Section -->
+    <!-- Welcome & About Section -->
     <section class="py-12 px-6 max-w-2xl mx-auto text-center">
-        <h2 class="text-2xl font-black uppercase text-gray-900 mb-4 tracking-wide">WELCOME TO RHI</h2>
-        <p class="text-gray-700 leading-relaxed font-medium mb-8">
-            RHI is dedicated to providing humanitarian aid, education, and healthcare for the Rohingya community, who have faced unprecedented challenges and displacement. Join us in our journey to uplift and empower one of the most vulnerable communities in the world.
+        <h2 class="text-2xl font-black uppercase text-gray-900 mb-4 tracking-wide">PREAMBLE</h2>
+        <p class="text-gray-700 leading-relaxed font-medium mb-8 text-justify">
+            We, the Rohingya youths, born into displacement yet driven by hope, unite with a shared determination to reclaim our dignity, strengthen our communities, and build a future rooted in justice, knowledge, and self-reliance. Despite statelessness, persecution, and prolonged displacement, we refuse to be defined by victimhood. This manifesto sets forth our collective vision, mission, principles and commitments for empowering Rohingya youths as agents of positive change.
         </p>
 
-        <!-- Mission Card -->
+        <!-- Vision Card -->
         <div class="border-2 border-gray-800 p-6 rounded-none text-left mb-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Mission:</h3>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Our Vision:</h3>
             <p class="text-gray-700 leading-relaxed">
-                "To empower and support the Rohingya community through sustainable humanitarian aid, educational programs, and healthcare for their rights and dignity."
+                "A resilient, educated, and self-empowered Rohingya youth community that upholds human dignity, contributes constructively to society, and plays a leading role in shaping a peaceful and sustainable future for the Rohingya people."
             </p>
         </div>
 
-        <!-- Vision Card -->
+        <!-- Mission Card -->
         <div class="border-2 border-gray-800 p-6 rounded-none text-left">
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Vision:</h3>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Our Mission:</h3>
             <p class="text-gray-700 leading-relaxed">
-                "A world where the Rohingya people thrive with dignity, equality, and access to all opportunities for a fulfilling life."
+                "To empower Rohingya youths through education, leadership development, skills training, advocacy, and community service, enabling them to become confident leaders, responsible citizens, and advocates for justice and human rights."
             </p>
         </div>
     </section>
 
-    <!-- Initiatives Highlights Section -->
-    <section class="bg-custom-dark text-white py-12 px-6">
-        <div class="max-w-2xl mx-auto space-y-10">
-            <!-- Educational Initiatives -->
-            <div class="text-center">
-                <i class="fa-solid fa-chalkboard-user text-5xl text-teal-200 mb-4"></i>
-                <h3 class="text-xl font-bold mb-2">Educational Initiatives</h3>
-                <p class="text-gray-300 text-sm leading-relaxed mb-3">
-                    RHI unites hearts and minds, fostering hope and empowerment through impactful education. Our mission is to uplift and empower, bringing about a transformative change in the lives of the Rohingya.
-                </p>
-                <a href="#" class="text-amber-400 font-bold uppercase text-xs tracking-widest hover:underline">LEARN MORE</a>
-            </div>
-
-            <!-- Humanitarian Aid -->
-            <div class="text-center">
-                <i class="fa-solid fa-hand-holding-heart text-5xl text-teal-200 mb-4"></i>
-                <h3 class="text-xl font-bold mb-2">Humanitarian Aid for Rohingyas</h3>
-                <p class="text-gray-300 text-sm leading-relaxed mb-3">
-                    RHI is dedicated to uplifting and empowering the Rohingya community through emergency relief, food distribution, and essential supplies.
-                </p>
-                <a href="#" class="text-amber-400 font-bold uppercase text-xs tracking-widest hover:underline">LEARN MORE</a>
+    <!-- Leadership Section -->
+    <section class="bg-gray-100 py-12 px-6">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="text-2xl font-black uppercase text-gray-900 mb-8 text-center tracking-wide">OUR LEADERSHIP</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Leader 1 -->
+                <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
+                    <h3 class="text-lg font-bold text-gray-900">Mr. Mohammed Zubair</h3>
+                    <p class="text-xs uppercase font-bold text-teal-700 mb-2">Founder & Chief Executive Officer</p>
+                    <p class="text-sm text-gray-600 flex items-center gap-2">
+                        <i class="fa-solid fa-envelope text-amber-500"></i>
+                        <a href="mailto:Khanmdzubair2025@gmail.com" class="hover:underline">Khanmdzubair2025@gmail.com</a>
+                    </p>
+                </div>
+                <!-- Leader 2 -->
+                <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
+                    <h3 class="text-lg font-bold text-gray-900">M. Yeasin</h3>
+                    <p class="text-xs uppercase font-bold text-teal-700 mb-2">Co-Founder & Managing Director</p>
+                    <p class="text-sm text-gray-600 flex items-center gap-2">
+                        <i class="fa-solid fa-envelope text-amber-500"></i>
+                        <a href="mailto:arohingya61@gmail.com" class="hover:underline">arohingya61@gmail.com</a>
+                    </p>
+                </div>
             </div>
         </div>
     </section>
@@ -136,18 +140,23 @@
         <div class="max-w-2xl mx-auto space-y-8">
             <div>
                 <h3 class="text-lg font-bold mb-4">Contact Us</h3>
-                <p class="flex items-center space-x-3 mb-2">
-                    <i class="fa-solid fa-phone text-amber-400"></i>
-                    <span>(443) 815-8434</span>
+                <p class="flex items-center space-x-3 mb-3">
+                    <i class="fa-brands fa-whatsapp text-amber-400 text-lg"></i>
+                    <span>+8801841052827</span>
                 </p>
-                <p class="flex items-center space-x-3 mb-2">
-                    <i class="fa-solid fa-envelope text-amber-400"></i>
-                    <span>contact@rohingyahopeinitiative.org</span>
+                <p class="flex items-center space-x-3 mb-4">
+                    <i class="fa-solid fa-envelope text-amber-400 text-lg"></i>
+                    <a href="mailto:rohingyayouthempowermentryea@gmail.com" class="hover:underline">rohingyayouthempowermentryea@gmail.com</a>
                 </p>
-                <p class="flex items-start space-x-3">
-                    <i class="fa-solid fa-location-dot text-amber-400 mt-1"></i>
-                    <span>ROHINGYA HOPE INITIATIVE<br>1301 York Rd Ste 800,<br>PMB 1056, Lutherville-Timonium, MD 21093</span>
-                </p>
+                
+                <!-- Social Media Links -->
+                <h4 class="text-sm font-bold uppercase mb-3 text-amber-300">Follow Us</h4>
+                <div class="flex space-x-4 text-2xl">
+                    <a href="https://www.facebook.com/share/1DLwSFMKAH/" target="_blank" class="text-white hover:text-amber-400"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://x.com/RYEA2025" target="_blank" class="text-white hover:text-amber-400"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/ryea.2025?stkn=MTNoNjVtZWQ2aHhvdw==" target="_blank" class="text-white hover:text-amber-400"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/rohingya-youth-empowerment-association-ryea-514659389?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="text-white hover:text-amber-400"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
             </div>
 
             <!-- Subscribe Card -->
@@ -170,7 +179,7 @@
 
     <!-- Fixed Bottom Sticky Bar -->
     <div class="fixed bottom-0 left-0 right-0 bg-red-700 text-white px-4 py-3 flex justify-between items-center z-50 shadow-2xl">
-        <span class="font-bold text-sm md:text-base">Support Rohingya Families</span>
+        <span class="font-bold text-sm md:text-base">Support Rohingya Youth</span>
         <a href="#donate" class="bg-white text-gray-900 font-bold px-4 py-2 rounded text-sm hover:bg-gray-100 transition">
             Donate Now
         </a>
