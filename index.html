@@ -434,7 +434,7 @@
             }
         });
 
-        // 1. Fetch & Load Recent Activities Dynamically (Multi-Image Gallery Support)
+        // 1. Fetch & Load Recent Activities Dynamically (Multi-Image Gallery Logic Updated)
         const activitiesContainer = document.getElementById('activities-container');
         const activitiesLoader = document.getElementById('activities-loader');
 
@@ -451,18 +451,29 @@
             snapshot.docs.forEach((docSnap) => {
                 const activity = docSnap.data();
                 
-                // Get image array or fallback single image
-                const imagesArr = activity.images || (activity.image ? [activity.image] : []);
-                
-                // Build Gallery Grid
+                // Smart Image URL Parser (Handles Array, Comma-separated strings & Single URLs)
+                let imagesArr = [];
+
+                if (Array.isArray(activity.images) && activity.images.length > 0) {
+                    imagesArr = activity.images;
+                } else if (typeof activity.images === 'string' && activity.images.trim() !== '') {
+                    imagesArr = activity.images.split(',').map(url => url.trim()).filter(url => url !== '');
+                } else if (activity.image) {
+                    imagesArr = typeof activity.image === 'string' ? activity.image.split(',').map(url => url.trim()).filter(url => url !== '') : [activity.image];
+                }
+
+                // Build Dynamic Gallery HTML
                 let galleryHTML = '';
                 if (imagesArr.length === 1) {
-                    galleryHTML = `<img src="${imagesArr[0]}" alt="${activity.title}" class="w-full h-56 object-cover bg-gray-100" onerror="this.src='https://via.placeholder.com/500x300?text=Activity+Image'">`;
+                    galleryHTML = `<img src="${imagesArr[0]}" alt="${activity.title}" class="w-full h-64 object-cover bg-gray-100" onerror="this.src='https://via.placeholder.com/500x300?text=Activity+Image'">`;
                 } else if (imagesArr.length > 1) {
+                    const gridCols = imagesArr.length === 2 ? 'grid-cols-2' : 'grid-cols-2 md:grid-cols-3';
                     galleryHTML = `
-                        <div class="grid grid-cols-2 gap-2 p-2 bg-gray-100">
+                        <div class="grid ${gridCols} gap-2 p-2 bg-gray-900 rounded-t-lg">
                             ${imagesArr.map(url => `
-                                <img src="${url}" alt="${activity.title}" class="w-full h-36 object-cover rounded shadow-sm hover:opacity-90 transition" onerror="this.src='https://via.placeholder.com/300x200?text=Image'">
+                                <div class="relative group h-40 overflow-hidden rounded bg-gray-800">
+                                    <img src="${url}" alt="${activity.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Error'">
+                                </div>
                             `).join('')}
                         </div>
                     `;
@@ -475,6 +486,7 @@
                     <div class="p-5">
                         <div class="flex justify-between items-center mb-2">
                             <span class="text-xs font-bold text-teal-800 bg-teal-100 px-2.5 py-1 rounded">${activity.date || 'Recent'}</span>
+                            ${imagesArr.length > 1 ? `<span class="text-xs font-bold text-amber-600 bg-amber-100 px-2 py-0.5 rounded"><i class="fa-solid fa-images mr-1"></i>${imagesArr.length} Photos</span>` : ''}
                         </div>
                         <h3 class="font-extrabold text-lg leading-snug text-gray-900 mb-2">${activity.title}</h3>
                         <p class="text-gray-600 text-sm leading-relaxed">${activity.description}</p>
