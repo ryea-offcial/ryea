@@ -16,127 +16,164 @@
 </head>
 <body class="bg-white text-gray-800 font-sans pb-16">
 
-    <!-- Top Navigation Header -->
-    <header class="bg-amber-400 py-3 px-4 sticky top-0 z-50 shadow-sm">
+    <!-- Navigation Header -->
+    <header class="bg-amber-400 py-3 px-4 sticky top-0 z-50 shadow-sm relative">
         <div class="container mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <!-- Website Logo -->
+            <a href="#home" class="flex items-center space-x-3">
                 <img src="IMG-20260914-WA0064.jpg" alt="RYEA Logo" class="h-10 w-10 rounded-full object-cover border border-gray-800" onerror="this.style.display='none'">
                 <span class="font-extrabold text-xl text-gray-900 tracking-wider">RYEA</span>
-            </div>
+            </a>
             <div class="flex items-center space-x-4">
-                <button class="text-gray-800"><i class="fa-solid fa-magnifying-glass text-lg"></i></button>
-                <button class="text-gray-800"><i class="fa-solid fa-bars text-xl"></i></button>
+                <!-- Search Toggle Button -->
+                <button id="search-toggle" class="text-gray-800 focus:outline-none">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+                <!-- Menu Toggle Button -->
+                <button id="menu-toggle" class="text-gray-800 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
             </div>
         </div>
-    </header>
 
-    <!-- Hero / Banner Section -->
-    <section class="bg-custom-dark text-white text-center py-12 px-4 relative">
-        <div class="max-w-2xl mx-auto">
-            <h1 class="text-2xl md:text-4xl font-extrabold uppercase tracking-wide leading-snug mb-4">
-                Rohingya Youth Empowerment Association<br>
-                <span class="text-amber-300">RECLAIMING DIGNITY, BUILDING FUTURE</span>
-            </h1>
-            <div class="bg-amber-400 text-gray-900 font-bold uppercase py-2 px-6 rounded inline-block text-lg shadow-md mb-6">
-                SUPPORT OUR WORK
+        <!-- Interactive Search Input Bar -->
+        <div id="search-bar" class="hidden absolute top-full left-0 w-full bg-amber-300 p-3 shadow-md z-40 border-t border-amber-400">
+            <div class="container mx-auto flex items-center bg-white rounded px-3 py-1 border border-gray-400">
+                <i class="fa-solid fa-magnifying-glass text-gray-500 mr-2"></i>
+                <input type="text" id="search-input" placeholder="Search page content or campaigns..." class="w-full bg-transparent focus:outline-none text-sm text-gray-800 font-medium py-1">
+                <button id="search-close" class="text-gray-500 ml-2 hover:text-gray-800">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
         </div>
-    </section>
 
-    <!-- Dynamic Projects Section (Firestore Integrated) -->
-    <section class="bg-custom-dark text-white py-8 px-4 border-t border-teal-700">
-        <div class="container mx-auto max-w-2xl">
-            <h2 class="text-xl font-bold uppercase tracking-wider mb-6 text-center text-amber-300">Current Campaigns & Initiatives</h2>
-            
-            <!-- Loading Indicator -->
-            <div id="projects-loader" class="text-center py-8">
-                <i class="fa-solid fa-circle-notch fa-spin text-3xl text-amber-400"></i>
-                <p class="text-gray-300 text-sm mt-2">Loading campaigns...</p>
-            </div>
-
-            <!-- Dynamic Project Cards Container -->
-            <div id="projects-container" class="space-y-6"></div>
-
-            <div class="text-center mt-8">
-                <a href="#donate" class="bg-emerald-300 hover:bg-emerald-400 text-gray-900 font-extrabold uppercase py-3 px-8 rounded shadow transition inline-block">
-                    DONATE NOW
+        <!-- Dropdown Mobile Menu -->
+        <nav id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-amber-400 shadow-xl border-t border-amber-300 py-4 px-6 z-50">
+            <ul class="flex flex-col space-y-3 font-bold text-gray-900 text-base">
+                <li><a href="#home" class="block hover:opacity-75">Home</a></li>
+                <li><a href="#about" class="block hover:opacity-75">About Us</a></li>
+                <li><a href="#work" class="block hover:opacity-75">Our Work</a></li>
+                <li><a href="#crisis" class="block hover:opacity-75">Rohingya Crisis</a></li>
+                <li><a href="#involved" class="block hover:opacity-75">Get Involved</a></li>
+                <li><a href="#emergency" class="block hover:opacity-75">Flood & Landslide Emergency</a></li>
+                <li><a href="#contact" class="block hover:opacity-75">Contact Us</a></li>
+            </ul>
+            <div class="mt-4 pt-2 border-t border-amber-300">
+                <a href="#donate" class="block w-full bg-custom-dark text-white text-center font-extrabold uppercase py-3 rounded shadow hover:bg-opacity-90">
+                    DONATE
                 </a>
             </div>
-        </div>
-    </section>
+        </nav>
+    </header>
 
-    <!-- Welcome & About Section -->
-    <section class="py-12 px-6 max-w-2xl mx-auto text-center">
-        <h2 class="text-2xl font-black uppercase text-gray-900 mb-4 tracking-wide">PREAMBLE</h2>
-        <p class="text-gray-700 leading-relaxed font-medium mb-8 text-justify">
-            We, the Rohingya youths, born into displacement yet driven by hope, unite with a shared determination to reclaim our dignity, strengthen our communities, and build a future rooted in justice, knowledge, and self-reliance. Despite statelessness, persecution, and prolonged displacement, we refuse to be defined by victimhood. This manifesto sets forth our collective vision, mission, principles and commitments for empowering Rohingya youths as agents of positive change.
-        </p>
+    <!-- Main Searchable Content Container -->
+    <main id="main-content">
+        <!-- Hero / Banner Section -->
+        <section id="home" class="bg-custom-dark text-white text-center py-12 px-4 relative searchable-section">
+            <div class="max-w-2xl mx-auto">
+                <h1 class="text-2xl md:text-4xl font-extrabold uppercase tracking-wide leading-snug mb-4">
+                    Rohingya Youth Empowerment Association<br>
+                    <span class="text-amber-300">RECLAIMING DIGNITY, BUILDING FUTURE</span>
+                </h1>
+                <a href="#involved" class="bg-amber-400 text-gray-900 font-bold uppercase py-2 px-6 rounded inline-block text-lg shadow-md mb-6 hover:bg-amber-500">
+                    SUPPORT OUR WORK
+                </a>
+            </div>
+        </section>
 
-        <!-- Vision Card -->
-        <div class="border-2 border-gray-800 p-6 rounded-none text-left mb-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Our Vision:</h3>
-            <p class="text-gray-700 leading-relaxed">
-                "A resilient, educated, and self-empowered Rohingya youth community that upholds human dignity, contributes constructively to society, and plays a leading role in shaping a peaceful and sustainable future for the Rohingya people."
-            </p>
-        </div>
-
-        <!-- Mission Card -->
-        <div class="border-2 border-gray-800 p-6 rounded-none text-left">
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Our Mission:</h3>
-            <p class="text-gray-700 leading-relaxed">
-                "To empower Rohingya youths through education, leadership development, skills training, advocacy, and community service, enabling them to become confident leaders, responsible citizens, and advocates for justice and human rights."
-            </p>
-        </div>
-    </section>
-
-    <!-- Leadership Section -->
-    <section class="bg-gray-100 py-12 px-6">
-        <div class="max-w-2xl mx-auto">
-            <h2 class="text-2xl font-black uppercase text-gray-900 mb-8 text-center tracking-wide">OUR LEADERSHIP</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-                <!-- Leader 1 -->
-                <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
-                    <h3 class="text-lg font-bold text-gray-900">Mr. Mohammed Zubair</h3>
-                    <p class="text-xs uppercase font-bold text-teal-700 mb-2">Founder & Chief Executive Officer</p>
-                    <p class="text-sm text-gray-600 flex items-center gap-2">
-                        <i class="fa-solid fa-envelope text-amber-500"></i>
-                        <a href="mailto:Khanmdzubair2025@gmail.com" class="hover:underline">Khanmdzubair2025@gmail.com</a>
-                    </p>
+        <!-- Dynamic Projects Section (Firestore Integrated) -->
+        <section id="work" class="bg-custom-dark text-white py-8 px-4 border-t border-teal-700">
+            <div class="container mx-auto max-w-2xl">
+                <h2 class="text-xl font-bold uppercase tracking-wider mb-6 text-center text-amber-300">Current Campaigns & Initiatives</h2>
+                
+                <!-- Loading Indicator -->
+                <div id="projects-loader" class="text-center py-8">
+                    <i class="fa-solid fa-circle-notch fa-spin text-3xl text-amber-400"></i>
+                    <p class="text-gray-300 text-sm mt-2">Loading campaigns...</p>
                 </div>
-                <!-- Leader 2 -->
-                <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
-                    <h3 class="text-lg font-bold text-gray-900">M. Yeasin</h3>
-                    <p class="text-xs uppercase font-bold text-teal-700 mb-2">Co-Founder & Managing Director</p>
-                    <p class="text-sm text-gray-600 flex items-center gap-2">
-                        <i class="fa-solid fa-envelope text-amber-500"></i>
-                        <a href="mailto:arohingya61@gmail.com" class="hover:underline">arohingya61@gmail.com</a>
-                    </p>
+
+                <!-- Dynamic Project Cards Container -->
+                <div id="projects-container" class="space-y-6"></div>
+
+                <div class="text-center mt-8">
+                    <a href="#donate" class="bg-emerald-300 hover:bg-emerald-400 text-gray-900 font-extrabold uppercase py-3 px-8 rounded shadow transition inline-block">
+                        DONATE NOW
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Join Our Cause Section -->
-    <section class="py-12 px-6 max-w-2xl mx-auto">
-        <div class="border-l-4 border-custom-dark pl-6 py-2">
-            <h2 class="text-2xl font-black uppercase text-gray-900 mb-4">JOIN OUR CAUSE</h2>
-            <p class="text-gray-700 leading-relaxed mb-6">
-                Be a part of our mission to bring hope and change to the Rohingya community. Whether through volunteering, donating, or spreading awareness, your involvement makes a difference.
+        <!-- Welcome & About Section -->
+        <section id="about" class="py-12 px-6 max-w-2xl mx-auto text-center searchable-section">
+            <h2 class="text-2xl font-black uppercase text-gray-900 mb-4 tracking-wide">PREAMBLE</h2>
+            <p class="text-gray-700 leading-relaxed font-medium mb-8 text-justify">
+                We, the Rohingya youths, born into displacement yet driven by hope, unite with a shared determination to reclaim our dignity, strengthen our communities, and build a future rooted in justice, knowledge, and self-reliance. Despite statelessness, persecution, and prolonged displacement, we refuse to be defined by victimhood. This manifesto sets forth our collective vision, mission, principles and commitments for empowering Rohingya youths as agents of positive change.
             </p>
-            <div class="flex flex-col gap-3">
-                <button class="bg-custom-dark text-white font-bold uppercase py-3 px-6 rounded text-left hover:bg-opacity-90">
-                    GET INVOLVED
-                </button>
-                <button class="bg-amber-400 text-gray-900 font-bold uppercase py-3 px-6 rounded text-left hover:bg-amber-500">
-                    DONATE NOW
-                </button>
+
+            <!-- Vision Card -->
+            <div class="border-2 border-gray-800 p-6 rounded-none text-left mb-6 searchable-section">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Our Vision:</h3>
+                <p class="text-gray-700 leading-relaxed">
+                    "A resilient, educated, and self-empowered Rohingya youth community that upholds human dignity, contributes constructively to society, and plays a leading role in shaping a peaceful and sustainable future for the Rohingya people."
+                </p>
             </div>
-        </div>
-    </section>
+
+            <!-- Mission Card -->
+            <div class="border-2 border-gray-800 p-6 rounded-none text-left searchable-section">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Our Mission:</h3>
+                <p class="text-gray-700 leading-relaxed">
+                    "To empower Rohingya youths through education, leadership development, skills training, advocacy, and community service, enabling them to become confident leaders, responsible citizens, and advocates for justice and human rights."
+                </p>
+            </div>
+        </section>
+
+        <!-- Leadership Section -->
+        <section class="bg-gray-100 py-12 px-6 searchable-section">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="text-2xl font-black uppercase text-gray-900 mb-8 text-center tracking-wide">OUR LEADERSHIP</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Leader 1 -->
+                    <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
+                        <h3 class="text-lg font-bold text-gray-900">Mr. Mohammed Zubair</h3>
+                        <p class="text-xs uppercase font-bold text-teal-700 mb-2">Founder & Chief Executive Officer</p>
+                        <p class="text-sm text-gray-600 flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-amber-500"></i>
+                            <a href="mailto:Khanmdzubair2025@gmail.com" class="hover:underline">Khanmdzubair2025@gmail.com</a>
+                        </p>
+                    </div>
+                    <!-- Leader 2 -->
+                    <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
+                        <h3 class="text-lg font-bold text-gray-900">M. Yeasin</h3>
+                        <p class="text-xs uppercase font-bold text-teal-700 mb-2">Co-Founder & Managing Director</p>
+                        <p class="text-sm text-gray-600 flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-amber-500"></i>
+                            <a href="mailto:arohingya61@gmail.com" class="hover:underline">arohingya61@gmail.com</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Join Our Cause Section -->
+        <section id="involved" class="py-12 px-6 max-w-2xl mx-auto searchable-section">
+            <div class="border-l-4 border-custom-dark pl-6 py-2">
+                <h2 class="text-2xl font-black uppercase text-gray-900 mb-4">JOIN OUR CAUSE</h2>
+                <p class="text-gray-700 leading-relaxed mb-6">
+                    Be a part of our mission to bring hope and change to the Rohingya community. Whether through volunteering, donating, or spreading awareness, your involvement makes a difference.
+                </p>
+                <div class="flex flex-col gap-3">
+                    <button class="bg-custom-dark text-white font-bold uppercase py-3 px-6 rounded text-left hover:bg-opacity-90">
+                        GET INVOLVED
+                    </button>
+                    <a href="#donate" class="bg-amber-400 text-gray-900 font-bold uppercase py-3 px-6 rounded text-left hover:bg-amber-500">
+                        DONATE NOW
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Contact & Footer Section -->
-    <footer class="bg-custom-dark text-white pt-10 pb-20 px-6">
+    <footer id="contact" class="bg-custom-dark text-white pt-10 pb-20 px-6">
         <div class="max-w-2xl mx-auto space-y-8">
             <div>
                 <h3 class="text-lg font-bold mb-4">Contact Us</h3>
@@ -178,12 +215,80 @@
     </footer>
 
     <!-- Fixed Bottom Sticky Bar -->
-    <div class="fixed bottom-0 left-0 right-0 bg-red-700 text-white px-4 py-3 flex justify-between items-center z-50 shadow-2xl">
+    <div id="donate" class="fixed bottom-0 left-0 right-0 bg-red-700 text-white px-4 py-3 flex justify-between items-center z-50 shadow-2xl">
         <span class="font-bold text-sm md:text-base">Support Rohingya Youth</span>
         <a href="#donate" class="bg-white text-gray-900 font-bold px-4 py-2 rounded text-sm hover:bg-gray-100 transition">
             Donate Now
         </a>
     </div>
+
+    <!-- UI Scripts for Menu and Search Functionality -->
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const searchToggle = document.getElementById('search-toggle');
+        const searchBar = document.getElementById('search-bar');
+        const searchClose = document.getElementById('search-close');
+        const searchInput = document.getElementById('search-input');
+
+        // Toggle Mobile Menu
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            searchBar.classList.add('hidden');
+        });
+
+        // Toggle Search Bar
+        searchToggle.addEventListener('click', () => {
+            searchBar.classList.toggle('hidden');
+            mobileMenu.classList.add('hidden');
+            if (!searchBar.classList.contains('hidden')) {
+                searchInput.focus();
+            }
+        });
+
+        searchClose.addEventListener('click', () => {
+            searchBar.classList.add('hidden');
+            searchInput.value = '';
+            filterContent('');
+        });
+
+        // Close menu when clicking links
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Live Search Filter Function
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            filterContent(query);
+        });
+
+        function filterContent(query) {
+            // Filter Static Sections
+            const sections = document.querySelectorAll('.searchable-section');
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    section.style.display = '';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+
+            // Filter Dynamic Project Cards
+            const projectCards = document.querySelectorAll('#projects-container > div');
+            projectCards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 
     <!-- Firebase Realtime Integration -->
     <script type="module">
